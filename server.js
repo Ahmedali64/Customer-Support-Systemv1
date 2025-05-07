@@ -6,8 +6,9 @@ import morgan from "morgan";
 import { logger } from "./src/config/logger.js";
 import mongooseConnection from "./src/config/mongooseConnection.js";
 import knexConnection from "./src/config/knexConnection.js";
-
-
+import {router as authRoutes} from "./src/routes/authRoutes.js";
+import Redis from "ioredis";
+import { RedisStore } from 'connect-redis';//Redis session store
 
 dotenv.config();
 const app = express();
@@ -23,7 +24,26 @@ app.use(morgan('combined', { stream: logger.stream }));
 mongooseConnection();
 knexConnection();
 
-
+//sesssion
+const redisClient = new Redis(process.env.REDIS_URL);
+const store = new RedisStore({ client: redisClient });
+app.use(
+    session({
+      store: store,//use redis client for session store
+      secret: process.env.SESSION_SECRET, // Use a secure secret key
+      resave: false, // Prevents session from being saved back to the store if it wasn't modified
+      saveUninitialized: false, // Prevents saving uninitialized sessions
+      cookie: {
+        sameSite: 'strict', // Helps prevent CSRF attacks
+        httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+        secure: process.env.NODE_ENV === "production" || false , // Use secure cookies in production
+        maxAge: 1000 * 60 * 60 * 24, // 1 day in milliseconds
+      },
+    })
+  );
+  
+//routes
+app.use(authRoutes);
 
 
 
