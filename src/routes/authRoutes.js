@@ -1,14 +1,16 @@
 import express from 'express';
-import { login, register , logout } from "../Controllers/AuthControllers.js";
+import { login, register , logout ,refreshToken} from "../Controllers/AuthControllers.js";
 import { registerValidation,loginValidation } from '../utils/userValidation.js';
 import validate from "../middlewares/validationMiddleware.js"
 const router = express.Router();
 
 router.post('/register',validate(registerValidation),register);
 router.post('/login',validate(loginValidation),login);
+router.post('/refresh', refreshToken);
 router.delete('/logout',logout);
+
 //Route for Google Login
-//this route is the rout that user will make a req ro login with google 
+//this route is the route that user will make a req to login with google 
 //passpor will redirect user to the authserver 
 router.get('/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
 

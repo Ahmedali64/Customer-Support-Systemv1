@@ -9,6 +9,7 @@ export async function up(knex) {
       table.string("email").unique().notNullable();
       table.string("password").notNullable();
       table.enu("role" ,['customer', 'agent', 'admin']).defaultTo("customer");
+      table.string("avatar").nullable();
       table.timestamps(true, true);
     });
   

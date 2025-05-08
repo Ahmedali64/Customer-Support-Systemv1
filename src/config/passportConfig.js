@@ -13,16 +13,16 @@ passport.use(
       async (accessToken, refreshToken, profile, done) => {
         try {
           // Check if user already exists
-          let User = await user.findByEmail(profile.emails[0].value);
-          if (!User) {
+          let userData = await user.findByEmail(profile.emails[0].value);
+          if (!userData) {
             // Create a new user
-            user = await user.create({
+            userData = await user.create({
               name: profile.displayName,
               email: profile.emails[0].value,
               role: "customer", // Default role for Google users
             });
           }
-          return done(null, user);
+          return done(null, userData);
         } catch (err) {
           return done(err, null);
         }

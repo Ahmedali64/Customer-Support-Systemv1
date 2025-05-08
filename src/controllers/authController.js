@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from "uuid"; 
 import {user} from "../utils/userHelper.js"
+import { generateTokens } from "../utils/genTokens.js";
+import redis from "../config/redisConfig.js";
 //Register
 export const register = async(req,res) => {
     try{
@@ -30,11 +32,13 @@ export const login = async(req,res) => {
     try{
         const {email , password} = req.body;
         const user = await user.findByEmail(email);
-        const isMatch = await bcrypt.compare(password, user.password);
-        if(!user || !isMatch){
+        if (!user) {
             return res.status(400).json({ message: "Invalid credentials" });
-        };
-
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
         if (user.role === "agent" ) {
             // save SESSION data for agents
             req.session.userId = user.id;
@@ -47,8 +51,8 @@ export const login = async(req,res) => {
             return res.status(200).json({ message: "Admin logged in successfully" });
         }else{
             //create token
-            const token = jwt.sign({ id: user.id ,role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
-            res.status(200).json({ message: "Login successful", token });
+            const { accessToken, refreshToken } = await generateTokens(user);
+            res.status(200).json({ message: "Login successful",  accessToken, refreshToken });
     }
 
     }catch(err){
@@ -56,28 +60,60 @@ export const login = async(req,res) => {
     };
 };
 //logout
-export const logout = async() => {
-    if(req.session){
-        try{
-            const agentId = req.session.userId; // Get the agent ID from the session
-            if (req.session.role === "agent") {
-                // Remove the agent from the queue
-                await removeAgentFromQueue(agentId);
-            };
-            //destroy session
+export const logout = async(req, res) => {
+    try {
+        // Handle session logout if exists
+        if(req.session) {
             req.session.destroy(err => {
-                if(err){
-                    return res.status(500).json({ message: "Failed to log out due to server error", error: err.message });
-                };
-                //connect.sid is coockie that has the session id 
-                res.clearCookie("connect.sid", { httpOnly: true, secure: process.env.NODE_ENV === "production" });
-                res.status(200).json({ message: "Logout successful" });
+                if(err) {
+                    return res.status(500).json({ 
+                        message: "Failed to log out due to server error", 
+                        error: err.message 
+                    });
+                }
+                res.clearCookie("connect.sid", { 
+                    httpOnly: true, 
+                    secure: process.env.NODE_ENV === "production" 
+                });
             });
-        }catch(err){
-            res.status(500).json({ message: "Server error", error: err.message });
         }
+
+        // Handle token invalidation if refreshToken is provided
+        const { refreshToken } = req.body;
+        if (refreshToken) {
+            try {
+                const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+                await redis.del(decoded.id); // Remove refresh token from Redis
+            } catch (err) {
+                // Token is already invalid/expired
+            }
+        }
+
+        res.status(200).json({ message: "Logout successful" });
+    } catch(err) {
+        res.status(500).json({ message: "Server error", error: err.message });
     }
-    else{
-        res.status(200).json({ message: "Logged out successfully" });
+};
+// Token Refresh Endpoint
+export const refreshToken = async(req, res) => {
+    const { refreshToken } = req.body;
+    if (!refreshToken) return res.status(401).json({ message: "Unauthorized" });
+
+    try {
+        // Verify refresh token
+        const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+        
+        // Check if token exists in Redis
+        const storedToken = await redis.get(decoded.id);
+        if (refreshToken !== storedToken) {
+            return res.status(401).json({ message: "Invalid token" });
+        };
+
+        // Get user data and generate new access token
+        const user = await user.findById(decoded.id);
+        const { newAccessToken, newRefreshToken } = await generateTokens(user);
+        res.json({ accessToken: newAccessToken,refreshToken:newRefreshToken });
+    } catch (err) {
+        res.status(401).json({ message: "Invalid token" });
     }
 };

@@ -1,7 +1,8 @@
 import knex from "knex";
 import knexfile from "./knexfile.js";
 
-const knexConnection = knex(knexfile.development);
+const environment = process.env.NODE_ENV || "development";
+const knexConnection = knex(knexfile[environment]);
 knexConnection.raw('SELECT 1')
 .then(() => {
     console.log('Knex Connected!');

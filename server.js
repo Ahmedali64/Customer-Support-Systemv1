@@ -6,10 +6,11 @@ import morgan from "morgan";
 import { logger } from "./src/config/logger.js";
 import mongooseConnection from "./src/config/mongooseConnection.js";
 import knexConnection from "./src/config/knexConnection.js";
-import {router as authRoutes} from "./src/routes/authRoutes.js";
+import authRoutes from "./src/routes/authRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
 import Redis from "ioredis";
-import { RedisStore } from 'connect-redis';//Redis session store
-
+import { RedisStore } from "connect-redis";
+import session from "express-session";
 dotenv.config();
 const app = express();
 
@@ -43,8 +44,8 @@ app.use(
   );
   
 //routes
-app.use(authRoutes);
-
+app.use("/api/auth",authRoutes);
+app.use("/api/users", userRoutes);
 
 
 
