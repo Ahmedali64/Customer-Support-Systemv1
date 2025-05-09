@@ -64,9 +64,7 @@ export const initializSocketServer = (server) => {
                     conversationId,
                     senderId: socket.user.id,
                     receiverId:
-                        conversation.customerId === socket.user.id
-                            ? conversation.agentId
-                            : conversation.customerId,
+                        conversation.customerId === socket.user.id? conversation.agentId:conversation.customerId,
                     content,
                     status: "sent",
                 });
