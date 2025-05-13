@@ -9,25 +9,29 @@ import {
     getAllTickets,
     updateTicketStatus,
     deleteTicket,
-    getTicketHistory
+    getTicketHistory,
+    assignAgentToTicket
  } from "../controllers/ticketController";
+ 
 const router = express.Router();
 
 router.post("/create",
     authorizedRoles("customer", "agent", "admin"),
     validate(ticketCreationValidation),creatTicket);
+
 router.get("/:userid",
     authCustomer,
     authorizedRoles("customer", "agent", "admin"),getAllTickets);
+
 router.get("historyOf/:id",
     authorizedRoles("agent", "admin"),getTicketHistory);
+
+router.post("/assign-ticket" ,
+     authorizedRoles("agent"),assignAgentToTicket);   
+
 router.route("/:id")
     .patch(authorizedRoles("agent", "admin"),updateTicketStatus)
     .delete(authCustomer,authorizedRoles("customer", "agent", "admin"),deleteTicket)
     .get(authCustomer,authorizedRoles("customer", "agent", "admin"),getTicketByID);
-
-
-
-
 
 export default router;

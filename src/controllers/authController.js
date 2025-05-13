@@ -2,7 +2,7 @@ import "dotenv/config";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from "uuid"; 
-import {user} from "../utils/userHelper.js"
+import { user } from "../models/userModel.js"
 import { generateTokens } from "../utils/genTokens.js";
 import redis from "../config/redisConfig.js";
 //Register

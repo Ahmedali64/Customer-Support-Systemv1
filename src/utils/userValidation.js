@@ -1,4 +1,4 @@
-
+import Joi from "joi";
 //register validation
 export const registerValidation = Joi.object({
     name: Joi.string()

@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import {user} from "../utils/userHelper.js";
+import {user} from "../models/userModel.js";
 //here we are adding google start to our passport config
 //so password use it to authenticate users with google
 passport.use(

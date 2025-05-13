@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Message } from "./Message.js";
+import { Message } from "./messagesModel.js";
 
 const conversationSchema = new mongoose.Schema({
     customerId: { type:String, ref: "User", required: true },

@@ -54,4 +54,7 @@ export const ticket = {
         .select("id","changed_by","ticket_id","status")
         .first();
     },
+    async updateTicketAgent(ticketID , agentID){
+        return await knexConnection("tickets").where({id:ticketID}).update({agent_id:agentID}).select("id","customer_id","agent_id","subject","description","status")
+    },
 };

@@ -1,22 +1,24 @@
-import { ticket } from "../utils/ticketHelper.js";
+import { ticket } from "../models/ticketModel.js";
 import { v4 as uuidv4 } from "uuid";
 import { logger } from "../config/logger.js";
-
+import{ handleTicketCreation , handleAgentAvailability } from "../config/rabbitmq.js"
 // Create ticket
 export const creatTicket = async (req, res) => {
     try {
         const { subject, description, priority } = req.body;
         const customer_id = req.user.id;
-        const ticketData = await ticket.create({
+        const ticketData ={
             id: uuidv4(),
             customer_id,
             agent_id: null,
             subject,
             description,
             priority,
-        });
-        logger.info(`Ticket created successfully. User ID: ${req.user.id}, Ticket ID: ${ticketData.id}`);
-        res.status(201).json({ message: "Ticket created successfully!", ticketData });
+        };
+        let ticketFromRabbitMQ = await handleTicketCreation(ticketData);
+        let finalTicket = await ticket.create(ticketFromRabbitMQ);
+        logger.info(`Ticket created successfully. User ID: ${req.user.id}, Ticket ID: ${finalTicket.id}`);
+        res.status(201).json({ message: "Ticket created successfully!", finalTicket });
     } catch (err) {
         logger.error(`Error creating ticket. User ID: ${req.user.id}, Error: ${err.message}`, { stack: err.stack });
         res.status(500).json({ message: "Server error while creating ticket." });
@@ -166,4 +168,35 @@ export const getTicketHistory = async (req, res) => {
         logger.error(`Error retrieving ticket history. Ticket ID: ${req.params.id}, Error: ${err.message}`, { stack: err.stack });
         res.status(500).json({ message: "Server error while retrieving ticket history." });
     }
+};
+
+//get the agent a ticket
+export const assignAgentToTicket = async (req,res) => {
+    try{
+        //this agent is asking for a ticket
+        let { agentID } = req.body.agent_id;
+        //here if there is a ticket u wil get it no u will get null  
+        let availableTicket = await handleAgentAvailability(agentID);
+
+        if(availableTicket === null){
+            //this means no ticket so we just return a messages that he is added to Q
+            return res.status(200).json({message:"No tickets available. You have been added to the queue."});
+        }else{
+            //this means that there is a ticket
+            //so we update ticket in the data base and return it in the res
+            await ticket.updateTicketAgent(availableTicket.id , agentID);
+            logger.info(`A ticket with ID: ${availableTicket.id } has been assigned to agent ${agentID}`)
+            return res.status(200).json({
+                message: "You have been assigned a ticket.",
+                ticket: availableTicket,
+            });
+        }
+
+    }catch(err){
+            logger.error(`Error assigning ticket to agent. Agent ID: ${req.body.agentID}, Error: ${err.message}`, {
+            stack: err.stack,
+            });
+            res.status(500).json({ message: "Server error while assigning ticket." });
+    };
+
 };
