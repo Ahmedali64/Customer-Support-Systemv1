@@ -1,3 +1,0 @@
-2025-05-12T10:57:06.718Z [ERROR]: Failed to connect to RabbitMQ ,Errorchannel.assertQueue is not a function ,TypeError: channel.assertQueue is not a function
-    at connectToRabbitMQ (file:///D:/Final-Project/src/config/rabbitmq.js:15:23)
-    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

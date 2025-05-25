@@ -13,10 +13,13 @@ export const user = {
     }
   },
   async findByEmail(email) {
-    return await knexConnection('users').where({ email }).first();
+    return await knexConnection('users').where({ email })
+    .first();
   },
   async findById(id) {
-    return await knexConnection('users').where({ id }).first();
+    return await knexConnection('users').where({ id })
+    .select("id", "name", "email", "role", "created_at")
+    .first();
   },    
   async findAll(limit = 20, offset = 0) {
     return await knexConnection("users")

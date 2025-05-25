@@ -3,8 +3,14 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-import dotenv from "dotenv";
-dotenv.config();
+import { config } from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+// Resolve the path to the .env file
+// Get the directory name of the current module
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Load the .env file to the directory
+config({ path: path.resolve(__dirname, '../../.env') }); // Adjust the path as neede;
 export default {
 
   development: {

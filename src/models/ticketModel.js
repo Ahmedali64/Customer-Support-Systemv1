@@ -57,4 +57,9 @@ export const ticket = {
     async updateTicketAgent(ticketID , agentID){
         return await knexConnection("tickets").where({id:ticketID}).update({agent_id:agentID}).select("id","customer_id","agent_id","subject","description","status")
     },
+    async countDocuments(reqStatus){
+        //[ { 'count(*)': '5' } ] this is the output of the count
+        let result = await knexConnection("tickets").where({status:reqStatus}).count();
+        return Number(result[0]["count(*)"]);
+    },
 };

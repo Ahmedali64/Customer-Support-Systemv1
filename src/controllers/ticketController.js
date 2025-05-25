@@ -5,7 +5,7 @@ import{ handleTicketCreation , handleAgentAvailability } from "../config/rabbitm
 // Create ticket
 export const creatTicket = async (req, res) => {
     try {
-        const { subject, description, priority } = req.body;
+        const { subject, description } = req.body;
         const customer_id = req.user.id;
         const ticketData ={
             id: uuidv4(),
@@ -13,7 +13,7 @@ export const creatTicket = async (req, res) => {
             agent_id: null,
             subject,
             description,
-            priority,
+            status:"open",
         };
         let ticketFromRabbitMQ = await handleTicketCreation(ticketData);
         let finalTicket = await ticket.create(ticketFromRabbitMQ);
@@ -58,8 +58,9 @@ export const getTicketByID = async (req, res) => {
 // Get all tickets
 export const getAllTickets = async (req, res) => {
     try {
-        const { userID_Admin_Agent } = req.params; // ID sent in the request to fetch tickets
-        const { userID, role } = req.user; // Logged-in user's ID and role
+        const { userid:userID_Admin_Agent } = req.params; // ID sent in the request to fetch tickets
+        console.log(userID_Admin_Agent)
+        const { id, role } = req.session; // Logged-in user's ID and role
         const { page = 1, limit = 10 } = req.query; // Default to page 1 and 10 tickets per page
         const offset = (page - 1) * limit;
 
@@ -67,22 +68,22 @@ export const getAllTickets = async (req, res) => {
 
         if (role === "admin" || role === "agent") {
             tickets = await ticket.getCustomerTickets(userID_Admin_Agent, limit, offset);
-            logger.info(`Tickets retrieved successfully by Admin/Agent. User ID: ${userID}, Target User ID: ${userID_Admin_Agent}`);
+            logger.info(`Tickets retrieved successfully by Admin/Agent. User ID: ${id}, Target User ID: ${userID_Admin_Agent}`);
         } else if (role === "customer") {
-            if (userID_Admin_Agent !== userID) {
-                logger.warn(`Unauthorized access attempt by customer. User ID: ${userID}, Target User ID: ${userID_Admin_Agent}`);
+            if (userID_Admin_Agent !== id) {
+                logger.warn(`Unauthorized access attempt by customer. User ID: ${id}, Target User ID: ${userID_Admin_Agent}`);
                 return res.status(403).json({ message: "Forbidden: You can only access your own tickets." });
             }
-            tickets = await ticket.getCustomerTickets(userID, limit, offset);
-            logger.info(`Tickets retrieved successfully by Customer. User ID: ${userID}`);
+            tickets = await ticket.getCustomerTickets(id, limit, offset);
+            logger.info(`Tickets retrieved successfully by Customer. User ID: ${id}`);
         } else {
-            logger.warn(`Unauthorized role attempting to access tickets. User ID: ${userID}, Role: ${role}`);
+            logger.warn(`Unauthorized role attempting to access tickets. User ID: ${id}, Role: ${role}`);
             return res.status(403).json({ message: "Forbidden: You do not have access to this resource." });
         }
 
         res.status(200).json({ success: true, tickets });
     } catch (err) {
-        logger.error(`Error retrieving tickets. User ID: ${req.user.id}, Error: ${err.message}`, { stack: err.stack });
+        //logger.error(`Error retrieving tickets. User ID: ${req.user.id}, Error: ${err.message}`, { stack: err.stack });
         res.status(500).json({ success: false, message: "Server error", error: err.message });
     }
 };
@@ -174,7 +175,8 @@ export const getTicketHistory = async (req, res) => {
 export const assignAgentToTicket = async (req,res) => {
     try{
         //this agent is asking for a ticket
-        let { agentID } = req.body.agent_id;
+        let agentID  = req.session.userId;
+        console.log(agentID);
         //here if there is a ticket u wil get it no u will get null  
         let availableTicket = await handleAgentAvailability(agentID);
 

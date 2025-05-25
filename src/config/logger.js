@@ -3,7 +3,7 @@ import path from 'path';
 import fs from "fs";
 import DailyRotateFile from 'winston-daily-rotate-file'; 
 // Ensure log directory exists
-const logDir = 'logs';
+const logDir = './src/logs';
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 };

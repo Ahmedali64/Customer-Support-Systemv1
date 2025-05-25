@@ -1,6 +1,6 @@
 import express from "express";
-import authorizedRoles from "../middlewares/roleMiddleware.js";
-import authCustomer from "../middlewares/authMiddleware.js";
+import {authorizedRoles} from "../middlewares/roleMiddleware.js";
+import {authCustomer} from "../middlewares/authMiddleware.js";
 import {validate} from "../middlewares/validationMiddleware.js"
 import { ticketCreationValidation } from "../utils/ticketValidation.js";
 import { 
@@ -11,17 +11,17 @@ import {
     deleteTicket,
     getTicketHistory,
     assignAgentToTicket
- } from "../controllers/ticketController";
+ } from "../controllers/ticketController.js";
  
 const router = express.Router();
 
 router.post("/create",
+    authCustomer,
     authorizedRoles("customer", "agent", "admin"),
     validate(ticketCreationValidation),creatTicket);
-
+//get all tickets attached to that user
 router.get("/:userid",
-    authCustomer,
-    authorizedRoles("customer", "agent", "admin"),getAllTickets);
+    authorizedRoles("agent", "admin"),getAllTickets);
 
 router.get("historyOf/:id",
     authorizedRoles("agent", "admin"),getTicketHistory);

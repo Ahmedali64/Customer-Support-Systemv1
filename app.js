@@ -8,6 +8,8 @@ import mongooseConnection from "./src/config/mongooseConnection.js";
 import knexConnection from "./src/config/knexConnection.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import ticketRoutes from "./src/routes/ticketRoutes.js"
+import adminRoutes from "./src/routes/adminRoutes.js";
 import Redis from "ioredis";
 import { RedisStore } from "connect-redis";
 import session from "express-session";
@@ -45,6 +47,7 @@ app.use(
   
 //routes
 app.use("/api/auth",authRoutes);
+app.use("/api/tickets",ticketRoutes);
 app.use("/api/users", userRoutes);
 
 
