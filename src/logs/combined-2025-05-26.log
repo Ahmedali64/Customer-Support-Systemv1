@@ -14,3 +14,15 @@
 2025-05-26T06:42:23.451Z [WARN]: Unauthorized role attempting to access tickets. User ID: 385b5432-814f-43ee-b309-04d67dad07b3
 2025-05-26T06:44:20.395Z [WARN]: Unauthorized role attempting to access tickets. User ID: 385b5432-814f-43ee-b309-04d67dad07b3
 2025-05-26T06:45:17.608Z [INFO]: Tickets retrieved successfully by Customer. User ID: YuIefTh_KnQxfyfEluqdqy_u-OQD2Stw
+2025-05-26T07:01:26.280Z [ERROR]: Error updating ticket status. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: Cannot destructure property 'status' of 'req.body' as it is undefined.
+2025-05-26T07:02:05.659Z [ERROR]: Error updating ticket status. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: uuidv4 is not defined
+2025-05-26T07:05:00.713Z [ERROR]: Error updating ticket status. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: uuidv4 is not defined
+2025-05-26T07:07:16.214Z [INFO]: Ticket status updated successfully. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Updated By: 18bb3800-af4c-4747-a1ba-9200073968c3, New Status: resolved
+2025-05-26T07:16:28.343Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: Cannot destructure property 'id' of 'req.user' as it is undefined.
+2025-05-26T07:19:45.049Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: Cannot destructure property 'id' of 'req.user' as it is undefined.
+2025-05-26T07:20:01.969Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: Cannot destructure property 'id' of 'req.user' as it is undefined.
+2025-05-26T07:21:52.077Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: Cannot destructure property 'id' of 'req.user' as it is undefined.
+2025-05-26T07:22:34.437Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: Cannot destructure property 'id' of 'req.user' as it is undefined.
+2025-05-26T07:33:19.050Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: role is not defined
+2025-05-26T07:36:10.121Z [ERROR]: Failed to delete ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b
+2025-05-26T07:36:49.847Z [INFO]: Ticket deleted successfully. Ticket ID: bed9c28f-ea71-4a82-b93d-c0716a3e6e91, Deleted By: agent

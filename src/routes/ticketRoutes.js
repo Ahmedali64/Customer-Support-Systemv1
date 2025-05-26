@@ -23,7 +23,7 @@ router.post("/create",
 router.get("/:userid",
     authCustomer,
     authorizedRoles("customer","agent", "admin"),getAllTickets);
-
+ 
 router.get("historyOf/:id",
     authorizedRoles("agent", "admin"),getTicketHistory);
 

@@ -91,9 +91,9 @@ export const getAllTickets = async (req, res) => {
 // Update ticket status
 export const updateTicketStatus = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { status } = req.body;
-        const changedBy = req.user.id;
+        const { id } = req.params;//ticket id
+        const { status } = req.body;//new status
+        const changedBy = req.session.userId;//casue only andmin and agent can do this 
 
         const ticketData = await ticket.getTicket(id);
         if (!ticketData) {
@@ -117,31 +117,38 @@ export const updateTicketStatus = async (req, res) => {
 // Delete ticket
 export const deleteTicket = async (req, res) => {
     try {
-        const { id } = req.params; // Ticket ID
-        const { role, id: userId } = req.user; // User role and ID from `req.user`
-
-        if (!id) {
+        const {id:ticketID } = req.params; // Ticket ID
+        //we will solve Error: Cannot destructure property 
+        let cusID,cusRole;
+        let aId,aRole;
+        if(req.user){ 
+            ({ id:cusID, role:cusRole } = req.user);
+        }else if (req.session){
+            ({id:aId,role:aRole} = req.session);//as an agent or admin
+        }
+    
+        if (!ticketID) {
             return res.status(400).json({ message: "Ticket ID is required." });
         }
 
-        const ticketData = await ticket.getTicket(id);
+        const ticketData = await ticket.getTicket(ticketID);
         if (!ticketData) {
-            logger.warn(`Ticket not found for deletion. Ticket ID: ${id}`);
+            logger.warn(`Ticket not found for deletion. Ticket ID: ${ticketID}`);
             return res.status(404).json({ message: "Ticket not found." });
         }
-
-        if (role === "customer" && ticketData.customer_id !== userId) {
-            logger.warn(`Unauthorized deletion attempt. User ID: ${userId}, Ticket ID: ${id}`);
+        //customer only can del his tickets
+        if (cusRole === "customer" && ticketData.customer_id !== cusID) {
+            logger.warn(`Unauthorized deletion attempt. User ID: ${cusID}, Ticket ID: ${ticketID}`);
             return res.status(403).json({ message: "Forbidden: You do not have access to delete this ticket." });
         }
 
-        const deleted = await ticket.deleteTicket(id);
+        const deleted = await ticket.deleteTicket(ticketID);
         if (!deleted) {
-            logger.error(`Failed to delete ticket. Ticket ID: ${id}`);
+            logger.error(`Failed to delete ticket. Ticket ID: ${ticketID}`);
             return res.status(500).json({ message: "Failed to delete the ticket." });
         }
-
-        logger.info(`Ticket deleted successfully. Ticket ID: ${id}, Deleted By: ${userId}`);
+        const finalRole = cusRole || aRole;
+        logger.info(`Ticket deleted successfully. Ticket ID: ${ticketID}, Deleted By: ${finalRole}`);
         res.status(200).json({ message: "Ticket deleted successfully." });
     } catch (err) {
         logger.error(`Error deleting ticket. Ticket ID: ${req.params.id}, Error: ${err.message}`, { stack: err.stack });

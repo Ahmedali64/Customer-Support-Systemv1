@@ -1,4 +1,5 @@
 import knexConnection from "../config/knexConnection.js"
+import {v4 as uuidv4} from "uuid";
 export const ticket = {
     async create(ticketData){
         try{
@@ -32,7 +33,8 @@ export const ticket = {
         if (!updatedRows) {
             throw new Error("Ticket not found or update failed.");
         };
-        //save changes 
+        //save changes
+        //i am thinking if i should del the ticket after updating the status but lets just keep it for now  
         await knexConnection("ticket_history").insert({
             id: uuidv4(),
             changed_by: changedBy,
