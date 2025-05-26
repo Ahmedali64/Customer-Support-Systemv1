@@ -11,3 +11,13 @@
 2025-05-26T07:22:34.437Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: Cannot destructure property 'id' of 'req.user' as it is undefined.
 2025-05-26T07:33:19.050Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: role is not defined
 2025-05-26T07:36:10.121Z [ERROR]: Failed to delete ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b
+2025-05-26T09:44:47.522Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:45:52.243Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:46:31.797Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:47:07.325Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:47:36.108Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:47:54.211Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T10:46:08.024Z [ERROR]: error while updating the user Role By admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e
+2025-05-26T10:58:05.153Z [ERROR]: Admin with ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e is Replacing Current Role with similar Role
+2025-05-26T12:00:42.173Z [ERROR]: error while updating the user Role By admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e
+2025-05-26T12:01:18.166Z [ERROR]: error while updating the user Role By admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e

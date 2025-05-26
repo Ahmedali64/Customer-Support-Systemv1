@@ -126,6 +126,11 @@ export const deleteTicket = async (req, res) => {
     try {
         const {id:ticketID } = req.params; // Ticket ID
         //we will solve Error: Cannot destructure property 
+        //so why this happend ?
+        //js will get confused for some reason she will think that this is a Block of code 
+        //so u have to but them in() so she knows that u are doing some destructuring    
+        //so when u are doing destructuring proccess again and u are defining vars before assiging them 
+        //use () casue when u try to destructure js will think that this is a block of code 
         let cusID,cusRole;
         let aId,aRole;
         if(req.user){ 

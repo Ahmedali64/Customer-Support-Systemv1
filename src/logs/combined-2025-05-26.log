@@ -35,3 +35,20 @@
 2025-05-26T08:09:12.105Z [INFO]: Ticket retrieved successfully. retrived by user ID: 385b5432-814f-43ee-b309-04d67dad07b3 - Role: customer, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
 2025-05-26T08:10:49.671Z [INFO]: Ticket retrieved successfully. retrived by user ID: 385b5432-814f-43ee-b309-04d67dad07b3 - Role: customer, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
 2025-05-26T08:11:02.590Z [INFO]: Ticket retrieved successfully. retrived by user ID: SVz1lSEV67XFmCEQvJOGMBpirXi38xd_ - Role: agent, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T09:44:47.522Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:45:52.243Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:46:31.797Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:47:07.325Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:47:36.108Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:47:54.211Z [ERROR]: an error occured while retrieving user data user admin ID: 8c03c070-70b5-4a2f-88dd-a54516af6c6e 
+2025-05-26T09:48:24.005Z [INFO]: Admin with ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e retrieved user data with ID: 18bb3800-af4c-4747-a1ba-9200073968c3
+2025-05-26T10:46:08.024Z [ERROR]: error while updating the user Role By admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e
+2025-05-26T10:46:50.774Z [INFO]: Admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e has updated user ID:undefined Role Successfully from customer to agent
+2025-05-26T10:50:00.288Z [INFO]: Admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e has updated user ID:18bb3800-af4c-4747-a1ba-9200073968c3 Role Successfully from customer to agent
+2025-05-26T10:57:03.343Z [INFO]: Admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e has updated user ID:18bb3800-af4c-4747-a1ba-9200073968c3 Role Successfully from customer to agent
+2025-05-26T10:57:40.099Z [INFO]: Admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e has updated user ID:18bb3800-af4c-4747-a1ba-9200073968c3 Role Successfully from customer to agent
+2025-05-26T10:58:05.153Z [ERROR]: Admin with ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e is Replacing Current Role with similar Role
+2025-05-26T11:05:42.224Z [INFO]: user deleted successfully By admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e
+2025-05-26T12:00:42.173Z [ERROR]: error while updating the user Role By admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e
+2025-05-26T12:01:18.166Z [ERROR]: error while updating the user Role By admin ID:8c03c070-70b5-4a2f-88dd-a54516af6c6e
+2025-05-26T12:14:19.040Z [INFO]: User Data has been updated successfully userID: 385b5432-814f-43ee-b309-04d67dad07b3

@@ -36,9 +36,3 @@ export const loginValidation = Joi.object( {
     email: Joi.string().email().trim().required(),
     password: Joi.string().min(8).trim().required(),
 });
-//profile update validation 
-export const profileUpdateValidation = Joi.object({
-    name: Joi.string().min(3).max(30).pattern(/^[a-zA-Z\s-]+$/).trim().optional(),
-    avatar: Joi.string().uri().optional(),
-    //.uri(): Validates that the string is a properly formatted URL
-});
