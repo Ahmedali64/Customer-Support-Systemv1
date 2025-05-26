@@ -29,12 +29,18 @@ export const creatTicket = async (req, res) => {
 export const getTicketByID = async (req, res) => {
     try {
         const { id } = req.params; // Ticket ID
-        const { role, id: userId } = req.user; // User role and ID from `req.user`
+        let cusID,cusRole;
+        let aId,aRole;
+        if(req.user){ 
+            ({ id:cusID, role:cusRole } = req.user);
+        }else if (req.session){
+            ({id:aId,role:aRole} = req.session);//as an agent or admin
+        }
 
         if (!id) {
             return res.status(400).json({ message: "Ticket ID is required." });
         }
-
+   
         const ticketData = await ticket.getTicket(id);
         if (!ticketData) {
             logger.warn(`Ticket not found. Ticket ID: ${id}`);
@@ -42,12 +48,13 @@ export const getTicketByID = async (req, res) => {
         }
 
         // Check access permissions
-        if (role === "customer" && ticketData.customer_id !== userId) {
-            logger.warn(`Unauthorized access attempt. User ID: ${userId}, Ticket ID: ${id}`);
+        if (cusRole === "customer" && ticketData.customer_id !== cusID) {
+            logger.warn(`Unauthorized access attempt. User ID: ${cusID}, Ticket ID: ${id}`);
             return res.status(403).json({ message: "Forbidden: You do not have access to this ticket." });
         }
-
-        logger.info(`Ticket retrieved successfully. User ID: ${userId}, Ticket ID: ${id}`);
+        const finalRole = cusRole || aRole;
+        const finalId = cusID || aId;
+        logger.info(`Ticket retrieved successfully. retrived by user ID: ${finalId} - Role: ${finalRole}, Ticket ID: ${id}`);
         res.status(200).json(ticketData);
     } catch (err) {
         logger.error(`Error retrieving ticket. Ticket ID: ${req.params.id}, Error: ${err.message}`, { stack: err.stack });

@@ -12,7 +12,10 @@ export const ticket = {
     },
     async getTicket(ticketID){
         return await knexConnection("tickets").where({id:ticketID})
-        .select("id","customer_id","agent_id","subject","description","status");;
+        .select("id","customer_id","agent_id","subject","description","status")
+        .first();// so i was retreving without this and i was getting an err 
+                //cause when u do not use first it return Data like this [{}]
+                //but with first it return Data like this {} it gets the first js object :)
     },
     async getCustomerTickets(customerId, limit, offset) {
         return await knexConnection("tickets")

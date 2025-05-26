@@ -26,3 +26,12 @@
 2025-05-26T07:33:19.050Z [ERROR]: Error deleting ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b, Error: role is not defined
 2025-05-26T07:36:10.121Z [ERROR]: Failed to delete ticket. Ticket ID: ddf767c4-b6a6-4b50-a76e-d8945d1ad38b
 2025-05-26T07:36:49.847Z [INFO]: Ticket deleted successfully. Ticket ID: bed9c28f-ea71-4a82-b93d-c0716a3e6e91, Deleted By: agent
+2025-05-26T07:46:31.703Z [INFO]: Ticket created successfully. User ID: 385b5432-814f-43ee-b309-04d67dad07b3, Ticket ID: undefined
+2025-05-26T08:00:51.979Z [INFO]: Ticket retrieved successfully. retrived by user ID: cThovaHEp81FoqBFadQ8d6nqXoGkOA_O - Role: agent, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T08:02:27.513Z [WARN]: Unauthorized access attempt. User ID: 385b5432-814f-43ee-b309-04d67dad07b3, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T08:03:09.831Z [WARN]: Unauthorized access attempt. User ID: 385b5432-814f-43ee-b309-04d67dad07b3, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T08:07:35.588Z [WARN]: Unauthorized access attempt. User ID: 385b5432-814f-43ee-b309-04d67dad07b3, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T08:08:25.171Z [WARN]: Unauthorized access attempt. User ID: 385b5432-814f-43ee-b309-04d67dad07b3, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T08:09:12.105Z [INFO]: Ticket retrieved successfully. retrived by user ID: 385b5432-814f-43ee-b309-04d67dad07b3 - Role: customer, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T08:10:49.671Z [INFO]: Ticket retrieved successfully. retrived by user ID: 385b5432-814f-43ee-b309-04d67dad07b3 - Role: customer, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc
+2025-05-26T08:11:02.590Z [INFO]: Ticket retrieved successfully. retrived by user ID: SVz1lSEV67XFmCEQvJOGMBpirXi38xd_ - Role: agent, Ticket ID: e9357eb3-dbd2-48c5-a56e-8448d56731dc

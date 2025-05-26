@@ -20,7 +20,7 @@ router.post("/create",
     authorizedRoles("customer", "agent", "admin"),
     validate(ticketCreationValidation),creatTicket);
 //get all tickets attached to that user
-router.get("/:userid",
+router.get("/allTickets/:userid",
     authCustomer,
     authorizedRoles("customer","agent", "admin"),getAllTickets);
  
