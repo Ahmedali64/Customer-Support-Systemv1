@@ -59,8 +59,8 @@ export const getTicketByID = async (req, res) => {
 export const getAllTickets = async (req, res) => {
     try {
         const { userid:userID_Admin_Agent } = req.params; // ID sent in the request to fetch tickets
-        console.log(userID_Admin_Agent)
-        const { id, role } = req.session; // Logged-in user's ID and role
+        const { id, role } = req.session; // Logged-in admin's ID and role
+        const {id:custID, role:cusRole}= req.user;
         const { page = 1, limit = 10 } = req.query; // Default to page 1 and 10 tickets per page
         const offset = (page - 1) * limit;
 
@@ -69,15 +69,15 @@ export const getAllTickets = async (req, res) => {
         if (role === "admin" || role === "agent") {
             tickets = await ticket.getCustomerTickets(userID_Admin_Agent, limit, offset);
             logger.info(`Tickets retrieved successfully by Admin/Agent. User ID: ${id}, Target User ID: ${userID_Admin_Agent}`);
-        } else if (role === "customer") {
-            if (userID_Admin_Agent !== id) {
-                logger.warn(`Unauthorized access attempt by customer. User ID: ${id}, Target User ID: ${userID_Admin_Agent}`);
+        } else if (cusRole === "customer") {
+            if (userID_Admin_Agent !== custID) {
+                logger.warn(`Unauthorized access attempt by customer. User ID: ${custID}, Target User ID: ${userID_Admin_Agent}`);
                 return res.status(403).json({ message: "Forbidden: You can only access your own tickets." });
             }
-            tickets = await ticket.getCustomerTickets(id, limit, offset);
+            tickets = await ticket.getCustomerTickets(userID_Admin_Agent, limit, offset);
             logger.info(`Tickets retrieved successfully by Customer. User ID: ${id}`);
         } else {
-            logger.warn(`Unauthorized role attempting to access tickets. User ID: ${id}, Role: ${role}`);
+            logger.warn(`Unauthorized role attempting to access tickets. User ID: ${userID_Admin_Agent}`);
             return res.status(403).json({ message: "Forbidden: You do not have access to this resource." });
         }
 

@@ -1,0 +1,16 @@
+2025-05-26T06:20:41.431Z [ERROR]: Failed to connect to RabbitMQ ,Error  ,AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1121:18)
+    at afterConnectMultiple (node:net:1688:7)
+2025-05-26T06:22:12.197Z [INFO]: Tickets retrieved successfully by Admin/Agent. User ID: AKZLKTZ7xBzf84i0-bHlL8ECxgDbQlNx, Target User ID: 385b5432-814f-43ee-b309-04d67dad07b3
+2025-05-26T06:22:17.221Z [INFO]: Tickets retrieved successfully by Admin/Agent. User ID: AKZLKTZ7xBzf84i0-bHlL8ECxgDbQlNx, Target User ID: 385b5432-814f-43ee-b309-04d67dad07b3
+2025-05-26T06:24:53.548Z [INFO]: Tickets retrieved successfully by Admin/Agent. User ID: AKZLKTZ7xBzf84i0-bHlL8ECxgDbQlNx, Target User ID: 385b5432-814f-43ee-b309-04d67dad07b3
+2025-05-26T06:25:16.813Z [INFO]: Tickets retrieved successfully by Admin/Agent. User ID: AKZLKTZ7xBzf84i0-bHlL8ECxgDbQlNx, Target User ID: 385b5432-814f-43ee-b309-04d67dad07b3
+2025-05-26T06:28:00.205Z [WARN]: Unauthorized role attempting to access tickets. User ID: YNXnapMgSHWWEQAAAVRzgLH_-A6IGXy1, Role: undefined
+2025-05-26T06:28:23.740Z [WARN]: Unauthorized role attempting to access tickets. User ID: igMi3rf-uU-WxfJAP89I79O1HWb1EfU8, Role: undefined
+2025-05-26T06:29:44.824Z [WARN]: Unauthorized role attempting to access tickets. User ID: 0dx9tAiTek5sPOYkXssOGG_AslhICpfE, Role: undefined
+2025-05-26T06:36:17.353Z [WARN]: Unauthorized role attempting to access tickets. User ID: iODRqJcDN1rHmqrueLb3fhXDk8v4x6gX, Role: undefined
+2025-05-26T06:38:05.398Z [WARN]: Unauthorized role attempting to access tickets. User ID: vuhIahkooJQqbgxnw0j7btkgWi-puLF5, Role: undefined
+2025-05-26T06:38:40.914Z [WARN]: Unauthorized role attempting to access tickets. User ID: h1qWktoVOs8UHZhEl-tv6S6rO3HatIX9, Role: undefined
+2025-05-26T06:42:23.451Z [WARN]: Unauthorized role attempting to access tickets. User ID: 385b5432-814f-43ee-b309-04d67dad07b3
+2025-05-26T06:44:20.395Z [WARN]: Unauthorized role attempting to access tickets. User ID: 385b5432-814f-43ee-b309-04d67dad07b3
+2025-05-26T06:45:17.608Z [INFO]: Tickets retrieved successfully by Customer. User ID: YuIefTh_KnQxfyfEluqdqy_u-OQD2Stw

@@ -21,7 +21,8 @@ router.post("/create",
     validate(ticketCreationValidation),creatTicket);
 //get all tickets attached to that user
 router.get("/:userid",
-    authorizedRoles("agent", "admin"),getAllTickets);
+    authCustomer,
+    authorizedRoles("customer","agent", "admin"),getAllTickets);
 
 router.get("historyOf/:id",
     authorizedRoles("agent", "admin"),getTicketHistory);

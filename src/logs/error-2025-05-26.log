@@ -1,0 +1,3 @@
+2025-05-26T06:20:41.431Z [ERROR]: Failed to connect to RabbitMQ ,Error  ,AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1121:18)
+    at afterConnectMultiple (node:net:1688:7)
