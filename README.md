@@ -107,7 +107,9 @@ src/
   middlewares/   # Auth, validation, etc.
   database/      # Migrations and seeds
   sockets/       # Real-time socket events
+  uploads/       # Save user avatar image
   utils/         # Helper utilities
+  logs/          # Save logs 
 ```
 
 ---
@@ -116,11 +118,6 @@ src/
 
 Contributions are welcome! Please fork the repo and submit a pull request. For major changes, open an issue first to discuss what you’d like to change.
 
----
-
-## License
-
-This project is licensed under the MIT License.
 
 ---
 
