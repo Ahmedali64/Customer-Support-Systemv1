@@ -49,7 +49,7 @@ app.use(
 app.use("/api/auth",authRoutes);
 app.use("/api/tickets",ticketRoutes);
 app.use("/api/users", userRoutes);
-
+app.use("/api/admin",adminRoutes);
 
 
 

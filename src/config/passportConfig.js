@@ -41,7 +41,7 @@ try {
   if (!User) {
     return done(new Error("User not found"), null); // Handle case where user is not found
   }
-  done(null, user); // Attach the full user object to req.user
+  done(null, User); // Attach the full user object to req.user
 } catch (err) {
   done(err, null); // Pass the error to Passport
 }

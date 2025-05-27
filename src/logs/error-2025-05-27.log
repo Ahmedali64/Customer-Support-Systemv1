@@ -1,0 +1,4 @@
+2025-05-27T06:23:58.585Z [ERROR]: Failed to connect to RabbitMQ ,Error  ,AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1121:18)
+    at afterConnectMultiple (node:net:1688:7)
+2025-05-27T06:29:24.105Z [ERROR]: Error fetching ticket stats: avgResponseTime is not defined

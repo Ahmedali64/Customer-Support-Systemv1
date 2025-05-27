@@ -2,6 +2,7 @@ import express from 'express';
 import { login, register , logout ,refreshToken} from "../controllers/authController.js";
 import { registerValidation,loginValidation } from '../utils/userValidation.js';
 import { validate } from "../middlewares/validationMiddleware.js"
+import { user }from "../models/userModel.js";
 import passport from "passport";
 const router = express.Router();
 
@@ -19,16 +20,16 @@ router.get('/google',passport.authenticate('google', { scope: ['profile', 'email
 router.get("/google/callback",
     passport.authenticate("google", { failureRedirect: "/login" }),
     async (req, res) => {
-        const user = req.user; // User profile from Google
-        const existingUser = await User.findByEmail(user.emails[0].value);
+        const User = req.user; // User profile from Google
+        const existingUser = await user.findByEmail(User.emails[0].value);
         if (!existingUser) {
-            await User.createUser({
-                name: user.displayName,
-                email: user.emails[0].value,
+            await user.createUser({
+                name: User.displayName,
+                email: User.emails[0].value,
                 role: "customer", // Or any default role
             });
         }
-        res.status(200).json({ message: "Login successful", user });
+        res.status(200).json({ message: "Login successful", User });
     }
 );
 

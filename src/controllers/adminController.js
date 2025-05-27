@@ -3,12 +3,11 @@ import logger from "../config/logger.js";
 export const getTicketStats = async (req , res) => {
     try{
         //we should return number of open and resoulved tickets
-        let openCount= ticket.countDocuments("open");
-        let resolvedCount=ticket.countDocuments("resoulved");
+        let openCount = await ticket.countDocuments("open");
+        let resolvedCount = await ticket.countDocuments("resoulved");
          res.status(200).json({
             open: openCount,
             resolved: resolvedCount,
-            averageResponseTimeMinutes: avgResponseTime
         });
     }catch(err){
         logger.error("Error fetching ticket stats: " + err.message);
